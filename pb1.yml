@@ -1,0 +1,38 @@
+- name: Apache installation for AmzLinuxservers
+  hosts: AmzLinuxservers
+  tasks:
+   - name: install the latest version of Apache
+     yum:
+       name: httpd
+       state: latest
+
+   - name: start Apache
+     shell: "service httpd start"
+
+   - name: index.html
+     copy:
+       content: "<h1>Hello Noura Alotaibi</h1>"
+       dest: /var/www/html/index.html
+
+   - name: restart apache2
+     service:
+       name: apache2
+       state: restarted
+       enabled: yes
+
+- name: Apache installation for Ubuntuservers
+  hosts: Ubuntuservers
+  tasks:
+   - name: install the latest version of Apache
+     apt:
+       name: apache2
+       state: latest
+   - name: index.html
+     copy:
+       content: "<h1>Hello Noura Alotaibi</h1>"
+       dest: /var/www/html/index.html
+   - name: restart apache2
+     service:
+       name: apache2
+       state: restarted
+       enabled: yes
